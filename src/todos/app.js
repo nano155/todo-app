@@ -3,6 +3,7 @@ import todoStore, { Filters } from '../store/todo.store'
 import { renderTodos, renderPending  } from "./use-cases";
 
 const ElementIDs = {
+    ClearCompleted:'.clear-completed',
     TodoList: '.todo-list',
     NewTodoInput: '#new-todo-input',
     TodoFilters: '.filtro',
@@ -40,6 +41,7 @@ export const App = (elementId) => {
     const newDescriptionInput = document.querySelector(ElementIDs.NewTodoInput)
     const todoListUl = document.querySelector(ElementIDs.TodoList)
     const filtersLi = document.querySelectorAll(ElementIDs.TodoFilters)
+    const btnDeleteCompleted = document.querySelector(ElementIDs.ClearCompleted)
 
     newDescriptionInput.addEventListener('keyup', (e) => {
 
@@ -65,6 +67,11 @@ export const App = (elementId) => {
             displayTodos()
         }
 
+    })
+
+    btnDeleteCompleted.addEventListener('click', ()=>{
+        todoStore.deleteCompleted()
+        displayTodos()
     })
 
     filtersLi.forEach(filter => {
